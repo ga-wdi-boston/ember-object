@@ -2,13 +2,14 @@
 
 # Ember Lesson
 
-## Foundations (i.e. Pre-reqs)
+## Lesson Details
+### Foundations (i.e. Pre-reqs)
 By this time, students have already learned:
 
 - Foundation 1
 - Foundation 2
 
-## Objectives
+### Objectives
 
 By the end of this, students should be able to:
 
