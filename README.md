@@ -49,16 +49,7 @@ Suppose for a minute that instead of two variables, we had two objects, with
  `get` and `set` methods like so:
 
 ```js
-var objX = {
-  count: 5
-  get: function(){
-    return this.count;
-  },
-  set: function(newVal){
-    this.count = newVal;
-    return this.count;
-  }
-}, objY = {
+let objX = {
   count: 5,
   get: function(){
     return this.count;
@@ -68,6 +59,23 @@ var objX = {
     return this.count;
   }
 };
+let objY = {
+  count: 5,
+  get: function(){
+    return this.count;
+  },
+  set: function(newVal){
+    this.count = newVal;
+    return this.count;
+  }
+};
+console.log(`X: ${objX.get()}`);
+objX.set(10);
+console.log(`X: ${objX.get()}`);
+console.log(`Y: ${objY.get()}`);
+objY.set(100);
+console.log(`Y: ${objY.get()}`);
+console.log(`X: ${objX.get()}`);
 ```
 
 As written, calling `get` and `set` on either object will get/set that own
@@ -78,17 +86,7 @@ One way we might accomplish that would be for each object to update the other
  any time that its own value is redefined.
 
 ```js
-var objX = {
-  count: 5,
-  get: function(){
-    return this.count;
-  },
-  set: function(newVal){
-    this.count = newVal;
-    if (objY.get() !== this.count) {objY.set(newVal);}
-    return this.count;
-  }
-}, objY = {
+let objX = {
   count: 5,
   get: function(){
     return this.count;
@@ -99,6 +97,24 @@ var objX = {
     return this.count;
   }
 };
+let objY = {
+  count: 5,
+  get: function(){
+    return this.count;
+  },
+  set: function(newVal){
+    this.count = newVal;
+    if (objX.get() !== this.count) {objX.set(newVal);}
+    return this.count;
+  }
+};
+console.log(`X: ${objX.get()}`);
+objX.set(10);
+console.log(`X: ${objX.get()}`);
+console.log(`Y: ${objY.get()}`);
+objY.set(100);
+console.log(`Y: ${objY.get()}`);
+console.log(`X: ${objX.get()}`);
 ```
 
 By wrapping the `count` value in an object, and hiding the actual reading
@@ -111,9 +127,7 @@ Almost all of the important piece of an Ember application are Ember Objects,
 Here's an example of how a new Ember Object can be instantiated.
 
 ```js
-import Ember from 'ember';
-
-var objX = Ember.Object.create({
+let objX = Ember.Object.create({
   count: 5
 });
 
@@ -135,13 +149,13 @@ Suppose that we wanted to create a 'Person' Ember Class, with a method called
 We might write:
 
 ```js
-var Person = Ember.Object.extend({
+const Person = Ember.Object.extend({
   sayHello: function(){
     return "Hi, my name is " + this.get('name');
   }
 });
 
-var frank = Person.create({
+let frank = Person.create({
   name: "Frank"
 })
 
@@ -155,7 +169,7 @@ A sub-class can add new methods or even overwrite old ones;
  by calling `this._super`.
 
 ```js
-var Developer = Person.extend({
+const Developer = Person.extend({
   code: function(){
     return "type type type"
   },
@@ -164,7 +178,7 @@ var Developer = Person.extend({
   }
 });
 
-var joe = Developer.create({
+let joe = Developer.create({
   name: "Joe"
 });
 
@@ -204,20 +218,21 @@ In the code above, we will be creating a new Ember Class that
 
 Inside this repo, run `ember serve --proxy` to launch your app; then, load up
  `localhost:4200` in your browser, and open up the inspector to the Console.
-In the console window, create a new Ember Class called 'Pet' with properties
+Write a script that will create a new Ember Class called 'Pet', with properties
  `name` and `age` and methods `eat` and `sleep` (which return, respectively,
  'nom nom nom' and 'zzz').
 Instantiate that Ember Class by creating a new Pet object with name 'Bruce'
  and age '9'.
-From the console, change Bruce's age to 10, and print out Bruce's new age using
- `console.log`.
+Change Bruce's age to 10, and print out Bruce's new age using `console.log`.
+Copy your script into the console to run it.
+Do you get the expected results?
 
-Next, create a new Ember Class called 'Dog'; it should have a new method,
- `bark`, which prints out the text 'arf'.
-Create a new Dog object with name 'Jellybeans' and age '7'.
-Call Jellybeans's `bark` method.
-
-When you finish, tilt your laptop screen down.
+Next, add a new Ember Class called 'Dog' to your script; it should have a new
+ method, `bark`, which prints out the text 'arf'.
+Create a new Dog object with name 'Jellybeans' and age '7', and call
+ Jellybeans's `bark` method.
+Finally, rerun your script in the console.
+Did it work correctly?
 
 ## Computed Properties
 
@@ -230,10 +245,10 @@ One common way that binding is implemented is through the use of
 Consider the following Ember Class:
 
 ```js
-var Person = Ember.Object.extend({
+const Person = Ember.Object.extend({
 });
 
-var bob = Person.create({
+let bob = Person.create({
   givenName: 'Bob',
   surname: 'Belcher'
 })
@@ -245,13 +260,13 @@ We could obviously define a function in the Class definition to return that
  value.
 
 ```js
-var Person = Ember.Object.extend({
+const Person = Ember.Object.extend({
   fullName: function(){
     return this.get('givenName') + ' ' + this.get('surname');
   }
 });
 
-var bob = Person.create({
+let bob = Person.create({
   givenName: 'Bob',
   surname: 'Belcher'
 })
@@ -270,13 +285,13 @@ In those cases, Computed Properties give us a convenient loophole.
 Here's how `fullName` might look when set up as a computed property.
 
 ```js
-var Person = Ember.Object.extend({
+const Person = Ember.Object.extend({
   fullName: Ember.computed('givenName', 'surname', function(){
     return this.get('givenName') + ' ' + this.get('surname');
   })
 });
 
-var bob = Person.create({
+let bob = Person.create({
   givenName: 'Bob',
   surname: 'Belcher'
 })
@@ -319,7 +334,7 @@ export default Ember.Object.extend({
   ],
 
   remaining: Ember.computed('todos.@each.isDone', function() {
-    var todos = this.get('todos');
+    let todos = this.get('todos');
     return todos.filterBy('isDone', false).get('length');
   })
 });
