@@ -2,37 +2,51 @@
 
 # Ember.Object and Computed Properties
 
-## Lesson Details
+One common reason to use a front-end framework is its interactivity - your
+ application can provide functionality to the user without needing to hit your
+ back-end.
+Often, you will want what the user sees to be updated in real time, or some
+ other kind of **value binding** (linking property A to property B so that if A
+ is changed, B gets updated too).
+Ember provides a way to implement value binding in applications through a
+ construction called an Ember Object.
 
-### Foundations
+## Prerequisites
 
-At this point, students have already learned how to:
+By now, you have already learned how to:
 
 -   Download and install `ember-cli` and its dependencies.
 -   Name and describe the different parts of an Ember application.
 
-### Objectives
+## Objectives
 
-By the end of this lesson, students should be able to:
+By the end of this session, you should be able to:
 
--   Explain the purpose of `Ember.Object`
--   Create a new Ember Object using `.create`
--   Read and write property values from an Ember Object using `.get` and `.set`
--   Create a new Ember Class using `.extend`
+-   Explain the purpose of Ember Objects.
+-   Instantiate a new Ember Object using `.create`.
+-   Read and write property values from an Ember Object using `.get` and `.set`.
+-   Create a new Ember Class using `.extend`.
 -   Define a custom computed property on an Ember Class.
 -   Create a new default computed property on an Ember Class.
 
+## Preparation
+
+1.  [Fork and clone](https://github.com/ga-wdi-boston/meta/wiki/ForkAndClone)
+    this repository.
+1.  Install dependencies with `npm install` and `bower install`.
+
 ## Ember Objects and Classes
 
-One neat feature of Ember that we mentioned earlier is **value binding** -
- linking property A to property B so that if A is changed, B gets updated too.
-As you know, this is not what normally happens; if you define a variable
- `xCount`, set another variable `yCount` equal to `xCount`,
- and then change the value of `xCount`, the value of `yCount` does not change.
-How does Ember allow this to happen?
+Value binding, at its face, flies in the face of everything we know about how
+ our programs work.
+If you were to define a variable `xCount`, set another variable `yCount` equal
+ to `xCount`, and then change the value of `xCount`, the value of `yCount`
+ would not change.
+
+So how does Ember make such a thing possible?
 
 Suppose for a minute that instead of two variables, we had two objects, with
- methods `get` and `set`, like this:
+ `get` and `set` methods like so:
 
 ```js
 var objX = {
@@ -58,8 +72,8 @@ var objX = {
 
 As written, calling `get` and `set` on either object will get/set that own
  object's `count` property, but not the other object's.
-What if we wanted to ensure that both properties were always in sync?
 
+What if we wanted to ensure that both properties were always in sync?
 One way we might accomplish that would be for each object to update the other
  any time that its own value is redefined.
 
@@ -87,13 +101,14 @@ var objX = {
 };
 ```
 
-**By wrapping the `count` value in an object, and hiding the actual reading**
- **and writing of the `count` variable behind functions, we can define**
- **additional functionality to run any time a property might be updated.**
+By wrapping the `count` value in an object, and hiding the actual reading
+ and writing of the `count` variable behind functions, we can set code to run
+ any time a property might be updated.
+This idea is why Ember decided to create a new object model, the Ember Object.
+Almost all of the important piece of an Ember application are Ember Objects,
+ so as a result they have the machinery for value binding built in.
 
-Ember utilizes this idea to great effect using a construct called
- `Ember.Object`.
-Here's an example of it in practice.
+Here's an example of how a new Ember Object can be instantiated.
 
 ```js
 import Ember from 'ember';
@@ -106,24 +121,18 @@ objX.set('count', 10);
 objX.get('count');      // 10
 ```
 
-Essentially, `Ember.Object` is an 'Ember Class' - it defines a bunch of methods
- (such as `get` and `set`), and provides a sort of constructor (`.create`) for
- making new objects that can access all of the methods that `Ember.Object`
- defines.
+`Ember.Object` is an **Ember Class**.
+Much like a Ruby class, it can define a bunch of instance methods (e.g. `get`
+ and `set`) and provides a constructor (`.create`) for instantiating new
+ objects, each of which can call those instance methods.
 These new objects can also access any other properties that get passed when
  `.create` is invoked (in this case, `count`).
 
-Let's put aside the topic of value binding for now - we'll touch on it again
- later.
-The important thing to understand right now is that value binding is one of the
- main reasons why `Ember.Object` exists and why so much of how Ember works is
- built on top of it.
-
 We can define our own custom 'sub-classes' from `Ember.Object` by using another
- method, called `.extend`.
+ method, `.extend`.
 Suppose that we wanted to create a 'Person' Ember Class, with a method called
- `sayHello`.
-We might write the following:
+ `sayHello` that returns "Hi, my name is ... ".
+We might write:
 
 ```js
 var Person = Ember.Object.extend({
@@ -163,19 +172,16 @@ joe.get('name'); // "Joe"
 joe.sayHello(); // "Hi, my name is Joe, and I'm a developer"
 ```
 
-The way that Ember uses Ember classes is very similar to how Rails uses Ruby
- classes.
-Essentially, Ember provides a number of in-built Ember Classes
- (e.g. `Ember.Application`, `Ember.Route`, `Ember.Controller`, `Ember.View`,
- `Ember.Component`),
- and each time we want to create a new Route/Controller/etc,
- we sub-class one of those existing classes using the `.extend` method.
+Ember uses Ember Classes very similarly to how Rails uses Ruby Classes.
+A number of Ember Classes are built in (e.g. `Ember.Application`, `Ember.Route`,
+ `Ember.Component`), and each time we want to create a new Route/Component/etc,
+ we sub-class one of those existing classes, using the `.extend` method.
 
 For instance, suppose that we want to create a new Route.
 Ember has a generator, much like Rails and Express, and we can use it to create
  a new Route by running `ember g route about`.
 As you can see, Ember has created a couple of new files for us; here's what
- `app/routes/about.js` looks like:
+ `app/about/routes.js` looks like:
 
 ```js
 import Ember from 'ember';    // This line makes all predefined Ember code accessible in this file.
@@ -184,24 +190,25 @@ export default Ember.Route.extend({
 });
 ```
 
-> `export default` is new ES6 syntax for exporting data from a module -
-> whatever comes after `default` is what gets exported.
-
-As you can see, in this file/module, we will be creating a new Ember Class that
+In the code above, we will be creating a new Ember Class that
  sub-classes (i.e. inherits) from `Ember.Route`; if we were to import this file
  from another file, this new Ember Class is what would get loaded.
 
-### YOUR TURN :: Ember Objects and Classes
+> `import` and `export` are new ES2015 syntax for importing and exporting data
+> from a module.
+> Unlike Node modules, ES2015 module can export multiple things.
+> However, it only has _one_ default export value, which you can specify
+> by writing `export default`.
 
-If you haven't already, fork and clone this repository.
-Run `npm install && bower install` to load all of this app's dependencies.
-Next, start your app with `ember serve`, load up `localhost:4200` in your
- browser, and open up the inspector to the Console.
+### Lab : Ember Objects and Classes
+
+Inside this repo, run `ember serve --proxy` to launch your app; then, load up
+ `localhost:4200` in your browser, and open up the inspector to the Console.
 In the console window, create a new Ember Class called 'Pet' with properties
  `name` and `age` and methods `eat` and `sleep` (which return, respectively,
  'nom nom nom' and 'zzz').
-Instantiate that Class by creating a new Pet object with name 'Bruce' and age
- '9'.
+Instantiate that Ember Class by creating a new Pet object with name 'Bruce'
+ and age '9'.
 From the console, change Bruce's age to 10, and print out Bruce's new age using
  `console.log`.
 
@@ -218,7 +225,7 @@ As mentioned earlier, binding properties together is one of Ember's neatest
  features, and `Ember.Object`'s `get` and `set` methods are a big part of making
  that possible.
 One common way that binding is implemented is through the use of
- **computed properties**, another construct that Ember provides.
+ **computed properties**.
 
 Consider the following Ember Class:
 
@@ -320,7 +327,7 @@ export default Ember.Object.extend({
 
 For a full list of computed properties, you can check the [API docs](http://emberjs.com/api/classes/Ember.computed.html)
 
-### YOUR TURN : Computed Properties
+### Lab : Computed Properties
 
 Define a new Ember Class and instantiate it.
 Then, create at least three new properties on your Ember Object.
