@@ -281,7 +281,7 @@ var bob = Person.create({
   surname: 'Belcher'
 })
 
-bob.get
+bob.get('fullName');
 ```
 
 As you can see, `fullName` is now accessible as if it were a normal property.
