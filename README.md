@@ -227,3 +227,8 @@ Define a new Ember Class and instantiate it. Then, create at least three new pro
 
 ## Additional Resources
 - [Ember 2.2.0 Guide : The Ember Object Model](http://guides.emberjs.com/v2.2.0/object-model/)
+
+## [License](LICENSE)
+
+Source code distributed under the MIT license. Text and other assets copyright
+General Assembly, Inc., all rights reserved.
