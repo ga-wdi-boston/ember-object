@@ -2,7 +2,7 @@
 
 module.exports = function(environment) {
   var ENV = {
-    modulePrefix: 'ember-cli-repo-template',
+    modulePrefix: 'ember-object',
     environment: environment,
     baseURL: '/',
     locationType: 'auto',
