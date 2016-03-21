@@ -321,24 +321,57 @@ If the value of a property is an array, there are even more computed properties
 -   `sort`
 
 Speaking of arrays: suppose that you have an array of Ember Objects and want to
- access a property across all of those object.
+ track changes to a property on all of those Ember Objects.
 Ember provides a special key called `@each` that it can use to unpack those
- properties.
+ properties and track them.
 
 ```js
-export default Ember.Object.extend({
-  todos: [
-    Ember.Object.create({ isDone: true }),
-    Ember.Object.create({ isDone: false }),
-    Ember.Object.create({ isDone: true })
-  ],
-
-  remaining: Ember.computed('todos.@each.isDone', function() {
-    let todos = this.get('todos');
-    return todos.filterBy('isDone', false).get('length');
+const Person = Ember.Object.extend({
+  fullName: Ember.computed('givenName', 'surname', function(){
+    return this.get('givenName') + ' ' + this.get('surname');
+  }),
+  kids: [],
+  numKidsUnder18: Ember.computed('kids.@each.age', function(){
+    let kids = this.get('kids');
+    return kids.filter((kid) => kid.age < 18).get('length');
   })
 });
+
+let bob = Person.create({
+  givenName: 'Bob',
+  surname: 'Belcher',
+  kids: [
+   Ember.Object.create({ name: 'Tina', age: 13 }),
+   Ember.Object.create({ name: 'Gina', age: 11 }),
+   Ember.Object.create({ name: 'Louise', age: 9 })
+  ]
+})
+
+bob.get('fullName');
+console.log(`Kids under 18: ${bob.get('numKidsUnder18')}`);
+
+bob.get('kids').forEach((kid) => {
+  kid.set('age', kid.get('age') + 6);
+})
+console.log('6 years in the future...');
+console.log(`Kids under 18: ${bob.get('numKidsUnder18')}`);
+
+bob.get('kids').forEach((kid) => {
+  kid.set('age', kid.get('age') + 2);
+})
+console.log('2 more years in the future...');
+console.log(`Kids under 18: ${bob.get('numKidsUnder18')}`);
+
+bob.get('kids').forEach((kid) => {
+  kid.set('age', kid.get('age') + 2);
+})
+console.log('2 more years in the future...');
+console.log(`Kids under 18: ${bob.get('numKidsUnder18')}`);
 ```
+
+As the kids' ages increase, the value of the computed property changes, and
+ because we used `@each`, a change to any of their ages would cause the
+ computed property to recalculate.
 
 For a full list of computed properties, you can check the [API docs](http://emberjs.com/api/classes/Ember.computed.html)
 
