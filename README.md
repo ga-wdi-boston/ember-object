@@ -204,10 +204,6 @@ export default Ember.Route.extend({
 });
 ```
 
-In the code above, we will be creating a new Ember Class that
- sub-classes (i.e. inherits) from `Ember.Route`; if we were to import this file
- from another file, this new Ember Class is what would get loaded.
-
 > `import` and `export` are new ES2015 syntax for importing and exporting data
 > from a module.
 > Unlike Node modules, ES2015 module can export multiple things.
