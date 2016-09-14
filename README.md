@@ -151,7 +151,7 @@ We might write:
 ```js
 const Person = Ember.Object.extend({
   sayHello: function(){
-    return "Hi, my name is " + this.get('name');
+    return `Hi, my name is ${this.get('name')}`
   }
 });
 
@@ -174,7 +174,7 @@ const Developer = Person.extend({
     return "type type type"
   },
   sayHello: function(){
-    return this._super() + ", and I'm a developer"
+    return `${this._super()}, and I am a developer`;
   }
 });
 
@@ -258,7 +258,7 @@ We could obviously define a function in the Class definition to return that
 ```js
 const Person = Ember.Object.extend({
   fullName: function(){
-    return this.get('givenName') + ' ' + this.get('surname');
+    return `${this.get('givenName')} ${this.get('surname')}`;
   }
 });
 
@@ -283,7 +283,7 @@ Here's how `fullName` might look when set up as a computed property.
 ```js
 const Person = Ember.Object.extend({
   fullName: Ember.computed('givenName', 'surname', function(){
-    return this.get('givenName') + ' ' + this.get('surname');
+    return `${this.get('givenName')} ${this.get('surname')}`;
   })
 });
 
@@ -324,7 +324,7 @@ Ember provides a special key called `@each` that it can use to unpack those
 ```js
 const Person = Ember.Object.extend({
   fullName: Ember.computed('givenName', 'surname', function(){
-    return this.get('givenName') + ' ' + this.get('surname');
+    return `${this.get('givenName')} ${this.get('surname')}`;
   }),
   kids: [],
   numKidsUnder18: Ember.computed('kids.@each.age', function(){
