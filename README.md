@@ -178,12 +178,12 @@ const Developer = Person.extend({
   }
 });
 
-let joe = Developer.create({
-  name: "Joe"
+let jane = Developer.create({
+  name: "Jane"
 });
 
-joe.get('name'); // "Joe"
-joe.sayHello(); // "Hi, my name is Joe, and I'm a developer"
+jane.get('name'); // "Jane"
+jane.sayHello(); // "Hi, my name is Jane, and I'm a developer"
 ```
 
 Ember uses Ember Classes very similarly to how Rails uses Ruby Classes.
@@ -244,13 +244,13 @@ Consider the following Ember Class:
 const Person = Ember.Object.extend({
 });
 
-let bob = Person.create({
-  givenName: 'Bob',
+let tina = Person.create({
+  givenName: 'Tina',
   surname: 'Belcher'
 })
 ```
 
-Suppose we wanted `bob` to have a property called `fullName` which was equal
+Suppose we wanted `tina` to have a property called `fullName` which was equal
  to his given name plus his surname.
 We could obviously define a function in the Class definition to return that
  value.
@@ -262,12 +262,12 @@ const Person = Ember.Object.extend({
   }
 });
 
-let bob = Person.create({
-  givenName: 'Bob',
+let tina = Person.create({
+  givenName: 'Tina',
   surname: 'Belcher'
 })
 
-bob.fullName(); // 'Bob Belcher'
+tina.get('fullName')(); // 'Tina Belcher'
 ```
 
 The nice thing about using a function is that it will automatically recalculate
@@ -287,12 +287,12 @@ const Person = Ember.Object.extend({
   })
 });
 
-let bob = Person.create({
-  givenName: 'Bob',
+let tina = Person.create({
+  givenName: 'Tina',
   surname: 'Belcher'
 })
 
-bob.get('fullName');
+tina.get('fullName')();
 ```
 
 As you can see, `fullName` is now accessible as if it were a normal property.
@@ -333,8 +333,8 @@ const Person = Ember.Object.extend({
   })
 });
 
-let bob = Person.create({
-  givenName: 'Bob',
+let tina = Person.create({
+  givenName: 'Tina',
   surname: 'Belcher',
   kids: [
    Ember.Object.create({ name: 'Tina', age: 13 }),
@@ -343,26 +343,26 @@ let bob = Person.create({
   ]
 })
 
-bob.get('fullName');
-console.log(`Kids under 18: ${bob.get('numKidsUnder18')}`);
+tina.get('fullName');
+console.log(`Kids under 18: ${tina.get('numKidsUnder18')}`);
 
-bob.get('kids').forEach((kid) => {
+tina.get('kids').forEach((kid) => {
   kid.set('age', kid.get('age') + 6);
 })
 console.log('6 years in the future...');
-console.log(`Kids under 18: ${bob.get('numKidsUnder18')}`);
+console.log(`Kids under 18: ${tina.get('numKidsUnder18')}`);
 
-bob.get('kids').forEach((kid) => {
+tina.get('kids').forEach((kid) => {
   kid.set('age', kid.get('age') + 2);
 })
 console.log('2 more years in the future...');
-console.log(`Kids under 18: ${bob.get('numKidsUnder18')}`);
+console.log(`Kids under 18: ${tina.get('numKidsUnder18')}`);
 
-bob.get('kids').forEach((kid) => {
+tina.get('kids').forEach((kid) => {
   kid.set('age', kid.get('age') + 2);
 })
 console.log('2 more years in the future...');
-console.log(`Kids under 18: ${bob.get('numKidsUnder18')}`);
+console.log(`Kids under 18: ${tina.get('numKidsUnder18')}`);
 ```
 
 As the kids' ages increase, the value of the computed property changes, and
