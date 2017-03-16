@@ -69,13 +69,18 @@ let objY = {
     return this.count;
   }
 };
+```js
 console.log(`X: ${objX.get()}`);
 objX.set(10);
 console.log(`X: ${objX.get()}`);
+//=> 10
 console.log(`Y: ${objY.get()}`);
+//=> 5
 objY.set(100);
-console.log(`Y: ${objY.get()}`);
 console.log(`X: ${objX.get()}`);
+//=> 10
+console.log(`Y: ${objY.get()}`);
+//=> 100
 ```
 
 As written, calling `get` and `set` on either object will get/set that own
