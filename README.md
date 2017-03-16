@@ -121,7 +121,7 @@ By wrapping the `count` value in an object, and hiding the actual reading
  and writing of the `count` variable behind functions, we can set code to run
  any time a property might be updated.
 This idea is why Ember decided to create a new object model, the Ember Object.
-Almost all of the important piece of an Ember application are Ember Objects,
+Almost all of the important pieces of an Ember application are Ember Objects,
  so as a result they have the machinery for value binding built in.
 
 Here's an example of how a new Ember Object can be instantiated.
