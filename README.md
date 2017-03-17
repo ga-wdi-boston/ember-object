@@ -249,13 +249,13 @@ Consider the following Ember Class:
 const Person = Ember.Object.extend({
 });
 
-let tina = Person.create({
-  givenName: 'Tina',
+let bob = Person.create({
+  givenName: 'Bob',
   surname: 'Belcher'
 })
 ```
 
-Suppose we wanted `tina` to have a property called `fullName` which was equal
+Suppose we wanted `bob` to have a property called `fullName` which was equal
  to his given name plus his surname.
 We could obviously define a function in the Class definition to return that
  value.
@@ -267,12 +267,12 @@ const Person = Ember.Object.extend({
   }
 });
 
-let tina = Person.create({
-  givenName: 'Tina',
+let bob = Person.create({
+  givenName: 'Bob',
   surname: 'Belcher'
 })
 
-tina.get('fullName')(); // 'Tina Belcher'
+bob.get('fullName')(); // 'Bob Belcher'
 ```
 
 The nice thing about using a function is that it will automatically recalculate
