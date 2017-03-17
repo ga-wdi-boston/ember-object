@@ -127,7 +127,7 @@ By wrapping the `count` value in an object, and hiding the actual reading
  any time a property might be updated.
 This idea is why Ember decided to create a new object model, the Ember Object.
 Almost all of the important pieces of an Ember application are Ember Objects,
- so as a result they have the machinery for value binding built in.
+ so, as a result,  they have the machinery for value binding built in.
 
 Here's an example of how a new Ember Object can be instantiated.
 
@@ -215,7 +215,7 @@ export default Ember.Route.extend({
 > However, it only has _one_ default export value, which you can specify
 > by writing `export default`.
 
-### Lab : Ember Objects and Classes
+### Lab: Ember Objects and Classes
 
 Inside this repo, run `ember serve --proxy` to launch your app; then, load up
  `localhost:4200` in your browser, and open up the inspector to the Console.
