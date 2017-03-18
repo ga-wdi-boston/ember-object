@@ -217,8 +217,8 @@ export default Ember.Route.extend({
 
 ### Lab: Ember Objects and Classes
 
-Inside this repo, run `ember serve --proxy` to launch your app; then, load up
- `localhost:4200` in your browser, and open up the inspector to the Console.
+Inside this repo, run `ember serve` to launch your app; then, load up
+ `localhost:7165` in your browser, and open up the inspector to the Console.
 Write a script that will create a new Ember Class called 'Pet', with properties
  `name` and `age` and methods `eat` and `sleep` (which return, respectively,
  'nom nom nom' and 'zzz').
