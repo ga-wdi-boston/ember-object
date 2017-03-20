@@ -69,6 +69,7 @@ let objY = {
     return this.count;
   }
 };
+```
 ```js
 console.log(`X: ${objX.get()}`);
 objX.set(10);
