@@ -69,13 +69,19 @@ let objY = {
     return this.count;
   }
 };
+```
+```js
 console.log(`X: ${objX.get()}`);
 objX.set(10);
 console.log(`X: ${objX.get()}`);
+//=> 10
 console.log(`Y: ${objY.get()}`);
+//=> 5
 objY.set(100);
-console.log(`Y: ${objY.get()}`);
 console.log(`X: ${objX.get()}`);
+//=> 10
+console.log(`Y: ${objY.get()}`);
+//=> 100
 ```
 
 As written, calling `get` and `set` on either object will get/set that own
@@ -121,8 +127,8 @@ By wrapping the `count` value in an object, and hiding the actual reading
  and writing of the `count` variable behind functions, we can set code to run
  any time a property might be updated.
 This idea is why Ember decided to create a new object model, the Ember Object.
-Almost all of the important piece of an Ember application are Ember Objects,
- so as a result they have the machinery for value binding built in.
+Almost all of the important pieces of an Ember application are Ember Objects,
+ so, as a result,  they have the machinery for value binding built in.
 
 Here's an example of how a new Ember Object can be instantiated.
 
@@ -210,10 +216,10 @@ export default Ember.Route.extend({
 > However, it only has _one_ default export value, which you can specify
 > by writing `export default`.
 
-### Lab : Ember Objects and Classes
+### Lab: Ember Objects and Classes
 
-Inside this repo, run `ember serve --proxy` to launch your app; then, load up
- `localhost:4200` in your browser, and open up the inspector to the Console.
+Inside this repo, run `ember serve` to launch your app; then, load up
+ `localhost:7165` in your browser, and open up the inspector to the Console.
 Write a script that will create a new Ember Class called 'Pet', with properties
  `name` and `age` and methods `eat` and `sleep` (which return, respectively,
  'nom nom nom' and 'zzz').
@@ -244,15 +250,15 @@ Consider the following Ember Class:
 const Person = Ember.Object.extend({
 });
 
-let tina = Person.create({
-  givenName: 'Tina',
+let bob = Person.create({
+  givenName: 'Bob',
   surname: 'Belcher'
 })
 ```
 
-Suppose we wanted `tina` to have a property called `fullName` which was equal
+Suppose we wanted `bob` to have a property called `fullName` which was equal
  to his given name plus his surname.
-We could obviously define a function in the Class definition to return that
+We could now define a function in the Class definition to return that
  value.
 
 ```js
@@ -262,12 +268,12 @@ const Person = Ember.Object.extend({
   }
 });
 
-let tina = Person.create({
-  givenName: 'Tina',
+let bob = Person.create({
+  givenName: 'Bob',
   surname: 'Belcher'
 })
 
-tina.get('fullName')(); // 'Tina Belcher'
+bob.get('fullName')(); // 'Bob Belcher'
 ```
 
 The nice thing about using a function is that it will automatically recalculate
