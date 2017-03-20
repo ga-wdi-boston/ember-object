@@ -257,7 +257,7 @@ let bob = Person.create({
 
 Suppose we wanted `bob` to have a property called `fullName` which was equal
  to his given name plus his surname.
-We could obviously define a function in the Class definition to return that
+We could now define a function in the Class definition to return that
  value.
 
 ```js
